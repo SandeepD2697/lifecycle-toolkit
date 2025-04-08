@@ -1,0 +1,12 @@
+apiVersion: metrics.keptn.sh/v1
+kind: KeptnMetricsProvider
+metadata:
+  name: my-elastic-provider
+  namespace: default
+spec:
+  type: elastic
+  targetServer: "https://quickstart-es-http:9200"
+  insecureSkipTlsVerify: true 
+  secretKeyRef:
+    name: elastic-api-key 
+    key: MGpXMlhwVUIxZjFTdEwwRTduZm86Q0Nra1lGQ0VUSG1NN1FIeThzd1NIUQ==
