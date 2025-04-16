@@ -1,9 +1,0 @@
-# apiVersion: metrics.keptn.sh/v1
-# kind: AnalysisValueTemplate
-# metadata:
-#   name: api-failure-rate
-#   namespace: default
-# spec:
-#   provider:
-#     name: my-elastic-provider  
-#   query: '{"query":{"bool":{"must":[{"range":{"timestamp":{"gte":"{{.from}}","lte":"{{.to}}"}}}]}},"size":0,"aggs":{"{{.metricPath}}":{"avg":{"script": "(doc[\"kibana.requests.failed\"].value / doc[\"kibana.requests.total\"].value) * 100"}}}}'
