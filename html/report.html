@@ -1,0 +1,96 @@
+
+<html>
+<head>
+  <title>Keptn Analysis Report - kibana-analysis4</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid #ddd; padding: 8px; vertical-align: top; }
+    th { background-color: #f2f2f2; }
+    .pass { color: green; font-weight: bold; }
+    .fail { color: red; font-weight: bold; }
+    .warn { color: orange; font-weight: bold; }
+    pre { white-space: pre-wrap; word-break: break-word; }
+  </style>
+</head>
+<body>
+<h1>Keptn Analysis Report</h1>
+<p><strong>Analysis:</strong> kibana-analysis4</p>
+<p><strong>Namespace:</strong> default</p>
+<p><strong>From:</strong> 2025-03-07T12:00:00Z</p>
+<p><strong>To:</strong> 2025-03-12T12:25:00Z</p>
+<p><strong>State:</strong> Completed</p>
+<p><strong>Total Score:</strong> 5 / 6</p>
+<p><strong>Passed:</strong> <span class='pass'>True</span> | <strong>Warning:</strong> <span class='warn'>False</span></p>
+
+<table>
+  <tr>
+    <th>Objective</th>
+    <th>Value</th>
+    <th>Fixed Target</th>
+    <th>Pass</th>
+    <th>Warning</th>
+    <th>Failure</th>
+    <th>Query</th>
+  </tr>
+
+    <tr>
+      <td>memory-usage</td>
+      <td>72.5</td>
+      <td>100</td>
+      <td class='pass'>True</td>
+      <td class='warn'>False</td>
+      <td class='fail'>False</td>
+      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-04-12T12:25:00Z&quot;}}},{&quot;term&quot;:{&quot;environment.keyword&quot;:&quot;production&quot;}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;environment.keyword&quot;,&quot;include&quot;:[&quot;production&quot;],&quot;size&quot;:1},&quot;aggs&quot;:{&quot;1&quot;:{&quot;date_histogram&quot;:{&quot;field&quot;:&quot;timestamp&quot;,&quot;calendar_interval&quot;:&quot;hour&quot;},&quot;aggs&quot;:{&quot;2&quot;:{&quot;histogram&quot;:{&quot;field&quot;:&quot;system.cpu.load&quot;,&quot;interval&quot;:10},&quot;aggs&quot;:{&quot;3&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;transactions.average_value&quot;}}}}}}}}}}</pre></td>
+    </tr>
+    
+    <tr>
+      <td>disk-usage4</td>
+      <td>70</td>
+      <td>75</td>
+      <td class='pass'>True</td>
+      <td class='warn'>False</td>
+      <td class='fail'>False</td>
+      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-05-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0-bucket&quot;:{&quot;filter&quot;:{&quot;bool&quot;:{&quot;must&quot;:[],&quot;filter&quot;:[{&quot;bool&quot;:{&quot;should&quot;:[{&quot;exists&quot;:{&quot;field&quot;:&quot;transactions.keptn.cpu.average&quot;}}],&quot;minimum_should_match&quot;:1}}],&quot;should&quot;:[],&quot;must_not&quot;:[]}},&quot;aggs&quot;:{&quot;0-metric&quot;:{&quot;top_metrics&quot;:{&quot;metrics&quot;:{&quot;field&quot;:&quot;transactions.keptn.cpu.average&quot;},&quot;size&quot;:1,&quot;sort&quot;:{&quot;timestamp&quot;:&quot;desc&quot;}}}}}}}</pre></td>
+    </tr>
+    
+    <tr>
+      <td>network-traffic</td>
+      <td>2520000000</td>
+      <td>3G</td>
+      <td class='pass'>True</td>
+      <td class='warn'>False</td>
+      <td class='fail'>False</td>
+      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-03-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;system.network.out_bytes&quot;}}}}</pre></td>
+    </tr>
+    
+    <tr>
+      <td>api-failure-rate</td>
+      <td>50</td>
+      <td>60</td>
+      <td class='pass'>True</td>
+      <td class='warn'>False</td>
+      <td class='fail'>False</td>
+      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-04-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0-bucket&quot;:{&quot;filter&quot;:{&quot;bool&quot;:{&quot;must&quot;:[],&quot;filter&quot;:[{&quot;bool&quot;:{&quot;should&quot;:[{&quot;exists&quot;:{&quot;field&quot;:&quot;transactions.keptn.fail.average&quot;}}],&quot;minimum_should_match&quot;:1}}],&quot;should&quot;:[],&quot;must_not&quot;:[]}},&quot;aggs&quot;:{&quot;0-metric&quot;:{&quot;top_metrics&quot;:{&quot;metrics&quot;:{&quot;field&quot;:&quot;transactions.keptn.fail.average&quot;},&quot;size&quot;:1,&quot;sort&quot;:{&quot;timestamp&quot;:&quot;desc&quot;}}}}}}}</pre></td>
+    </tr>
+    
+    <tr>
+      <td>response-time</td>
+      <td>209.333333</td>
+      <td>200</td>
+      <td class='pass'>False</td>
+      <td class='warn'>False</td>
+      <td class='fail'>True</td>
+      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-03-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;kibana.response_time.avg_ms&quot;}}}}</pre></td>
+    </tr>
+    
+    <tr>
+      <td>response-time-p95</td>
+      <td>0</td>
+      <td>10200m</td>
+      <td class='pass'>True</td>
+      <td class='warn'>False</td>
+      <td class='fail'>False</td>
+      <td><pre>{&quot;size&quot;:0,&quot;query&quot;:{&quot;term&quot;:{&quot;Logmessage.transactionStatus.keyword&quot;:{&quot;value&quot;:&quot;DOES_NOT_EXIST&quot;}}},&quot;aggs&quot;:{&quot;0&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;Logmessage.transactionStatus.keyword&quot;,&quot;size&quot;:10}}}}</pre></td>
+    </tr>
+    </table></body></html>
