@@ -1,96 +1,143 @@
+#!/usr/bin/env python3
+import sys
+import os
+import json
+import html
+import yaml
+import requests
 
-<html>
-<head>
-  <title>Keptn Analysis Report - kibana-analysis4</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 40px; }
-    table { border-collapse: collapse; width: 100%; }
-    th, td { border: 1px solid #ddd; padding: 8px; vertical-align: top; }
-    th { background-color: #f2f2f2; }
-    .pass { color: green; font-weight: bold; }
-    .fail { color: red; font-weight: bold; }
-    .warn { color: orange; font-weight: bold; }
-    pre { white-space: pre-wrap; word-break: break-word; }
-  </style>
-</head>
-<body>
-<h1>Keptn Analysis Report</h1>
-<p><strong>Analysis:</strong> kibana-analysis4</p>
-<p><strong>Namespace:</strong> default</p>
-<p><strong>From:</strong> 2025-03-07T12:00:00Z</p>
-<p><strong>To:</strong> 2025-03-12T12:25:00Z</p>
-<p><strong>State:</strong> Completed</p>
-<p><strong>Total Score:</strong> 5 / 6</p>
-<p><strong>Passed:</strong> <span class='pass'>True</span> | <strong>Warning:</strong> <span class='warn'>False</span></p>
+def download_from_jfrog(jfrog_url, download_path, jfrog_user, jfrog_api_key):
+    print(f"⬇️ Downloading YAML from JFrog: {jfrog_url}")
+    response = requests.get(jfrog_url, auth=(jfrog_user, jfrog_api_key))
+    if response.status_code != 200:
+        print(f"❌ Failed to download YAML. Status: {response.status_code}, Body: {response.text}")
+        sys.exit(1)
+    with open(download_path, "wb") as f:
+        f.write(response.content)
+    print(f"✅ YAML downloaded to {download_path}")
 
-<table>
-  <tr>
-    <th>Objective</th>
-    <th>Value</th>
-    <th>Fixed Target</th>
-    <th>Pass</th>
-    <th>Warning</th>
-    <th>Failure</th>
-    <th>Query</th>
-  </tr>
+def generate_html_report(yaml_file, output_file):
+    with open(yaml_file) as f:
+        data = yaml.safe_load(f)
 
-    <tr>
-      <td>memory-usage</td>
-      <td>72.5</td>
-      <td>100</td>
-      <td class='pass'>True</td>
-      <td class='warn'>False</td>
-      <td class='fail'>False</td>
-      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-04-12T12:25:00Z&quot;}}},{&quot;term&quot;:{&quot;environment.keyword&quot;:&quot;production&quot;}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;environment.keyword&quot;,&quot;include&quot;:[&quot;production&quot;],&quot;size&quot;:1},&quot;aggs&quot;:{&quot;1&quot;:{&quot;date_histogram&quot;:{&quot;field&quot;:&quot;timestamp&quot;,&quot;calendar_interval&quot;:&quot;hour&quot;},&quot;aggs&quot;:{&quot;2&quot;:{&quot;histogram&quot;:{&quot;field&quot;:&quot;system.cpu.load&quot;,&quot;interval&quot;:10},&quot;aggs&quot;:{&quot;3&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;transactions.average_value&quot;}}}}}}}}}}</pre></td>
-    </tr>
-    
-    <tr>
-      <td>disk-usage4</td>
-      <td>70</td>
-      <td>75</td>
-      <td class='pass'>True</td>
-      <td class='warn'>False</td>
-      <td class='fail'>False</td>
-      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-05-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0-bucket&quot;:{&quot;filter&quot;:{&quot;bool&quot;:{&quot;must&quot;:[],&quot;filter&quot;:[{&quot;bool&quot;:{&quot;should&quot;:[{&quot;exists&quot;:{&quot;field&quot;:&quot;transactions.keptn.cpu.average&quot;}}],&quot;minimum_should_match&quot;:1}}],&quot;should&quot;:[],&quot;must_not&quot;:[]}},&quot;aggs&quot;:{&quot;0-metric&quot;:{&quot;top_metrics&quot;:{&quot;metrics&quot;:{&quot;field&quot;:&quot;transactions.keptn.cpu.average&quot;},&quot;size&quot;:1,&quot;sort&quot;:{&quot;timestamp&quot;:&quot;desc&quot;}}}}}}}</pre></td>
-    </tr>
-    
-    <tr>
-      <td>network-traffic</td>
-      <td>2520000000</td>
-      <td>3G</td>
-      <td class='pass'>True</td>
-      <td class='warn'>False</td>
-      <td class='fail'>False</td>
-      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-03-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;system.network.out_bytes&quot;}}}}</pre></td>
-    </tr>
-    
-    <tr>
-      <td>api-failure-rate</td>
-      <td>50</td>
-      <td>60</td>
-      <td class='pass'>True</td>
-      <td class='warn'>False</td>
-      <td class='fail'>False</td>
-      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-04-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0-bucket&quot;:{&quot;filter&quot;:{&quot;bool&quot;:{&quot;must&quot;:[],&quot;filter&quot;:[{&quot;bool&quot;:{&quot;should&quot;:[{&quot;exists&quot;:{&quot;field&quot;:&quot;transactions.keptn.fail.average&quot;}}],&quot;minimum_should_match&quot;:1}}],&quot;should&quot;:[],&quot;must_not&quot;:[]}},&quot;aggs&quot;:{&quot;0-metric&quot;:{&quot;top_metrics&quot;:{&quot;metrics&quot;:{&quot;field&quot;:&quot;transactions.keptn.fail.average&quot;},&quot;size&quot;:1,&quot;sort&quot;:{&quot;timestamp&quot;:&quot;desc&quot;}}}}}}}</pre></td>
-    </tr>
-    
-    <tr>
-      <td>response-time</td>
-      <td>209.333333</td>
-      <td>200</td>
-      <td class='pass'>False</td>
-      <td class='warn'>False</td>
-      <td class='fail'>True</td>
-      <td><pre>{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-03-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;kibana.response_time.avg_ms&quot;}}}}</pre></td>
-    </tr>
-    
-    <tr>
-      <td>response-time-p95</td>
-      <td>0</td>
-      <td>10200m</td>
-      <td class='pass'>True</td>
-      <td class='warn'>False</td>
-      <td class='fail'>False</td>
-      <td><pre>{&quot;size&quot;:0,&quot;query&quot;:{&quot;term&quot;:{&quot;Logmessage.transactionStatus.keyword&quot;:{&quot;value&quot;:&quot;DOES_NOT_EXIST&quot;}}},&quot;aggs&quot;:{&quot;0&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;Logmessage.transactionStatus.keyword&quot;,&quot;size&quot;:10}}}}</pre></td>
-    </tr>
-    </table></body></html>
+    status = data.get("status", {})
+    timeframe = status.get("timeframe", {})
+    raw_json = status.get("raw", "{}")
+    state = status.get("state", "")
+    pass_status = status.get("pass", False)
+    warning_status = status.get("warning", False)
+
+    # Parse the raw field
+    raw_data = {}
+    try:
+        raw_data = json.loads(raw_json)
+    except Exception as e:
+        print("⚠️ Failed to parse raw field:", e)
+
+    objective_results = raw_data.get("objectiveResults", [])
+    analysis_name = data["metadata"]["name"]
+    namespace = data["metadata"]["namespace"]
+
+    html_content = f"""
+    <html>
+    <head>
+      <title>Keptn Analysis Report - {analysis_name}</title>
+      <style>
+        body {{ font-family: Arial, sans-serif; margin: 40px; }}
+        table {{ border-collapse: collapse; width: 100%; }}
+        th, td {{ border: 1px solid #ddd; padding: 8px; vertical-align: top; }}
+        th {{ background-color: #f2f2f2; }}
+        .pass {{ color: green; font-weight: bold; }}
+        .fail {{ color: red; font-weight: bold; }}
+        .warn {{ color: orange; font-weight: bold; }}
+        pre {{ white-space: pre-wrap; word-break: break-word; }}
+      </style>
+    </head>
+    <body>
+    <h1>Keptn Analysis Report</h1>
+    <p><strong>Analysis:</strong> {analysis_name}</p>
+    <p><strong>Namespace:</strong> {namespace}</p>
+    <p><strong>From:</strong> {timeframe.get("from", "")}</p>
+    <p><strong>To:</strong> {timeframe.get("to", "")}</p>
+    <p><strong>State:</strong> {state}</p>
+    <p><strong>Total Score:</strong> {raw_data.get("totalScore", "N/A")} / {raw_data.get("maximumScore", "N/A")}</p>
+    <p><strong>Passed:</strong> <span class='pass'>{pass_status}</span> | <strong>Warning:</strong> <span class='warn'>{warning_status}</span></p>
+
+    <table>
+      <tr>
+        <th>Objective</th>
+        <th>Value</th>
+        <th>Fixed Target</th>
+        <th>Pass</th>
+        <th>Warning</th>
+        <th>Failure</th>
+        <th>Query</th>
+      </tr>
+    """
+
+    for obj in objective_results:
+        objective = obj.get("objective", {}).get("analysisValueTemplateRef", {}).get("name", "-")
+        value = obj.get("value", "-")
+        result = obj.get("result", {})
+        query = html.escape(obj.get("query", ""))
+        pass_result = result.get("pass", False)
+        warn_result = result.get("warning", False)
+        fail_result = result.get("failResult", {}).get("fulfilled", False)
+
+        # Fixed threshold (if defined)
+        target = obj.get("objective", {}).get("target", {})
+        fixed_value = "-"
+        if "failure" in target:
+            failure = target.get("failure", {})
+            if "greaterThan" in failure:
+                fixed_value = failure["greaterThan"].get("fixedValue")
+            elif "lessThan" in failure:
+                fixed_value = failure["lessThan"].get("fixedValue")
+
+        html_content += f"""
+        <tr>
+          <td>{objective}</td>
+          <td>{value}</td>
+          <td>{fixed_value}</td>
+          <td class='pass'>{pass_result}</td>
+          <td class='warn'>{warn_result}</td>
+          <td class='fail'>{fail_result}</td>
+          <td><pre>{query}</pre></td>
+        </tr>
+        """
+
+    html_content += "</table></body></html>"
+
+    with open(output_file, "w") as f:
+        f.write(html_content)
+    print(f"✅ HTML report generated: {output_file}")
+
+def upload_to_jfrog(upload_url, local_file, jfrog_user, jfrog_api_key):
+    print(f"⬆️ Uploading report to JFrog: {upload_url}")
+    with open(local_file, 'rb') as f:
+        response = requests.put(upload_url, auth=(jfrog_user, jfrog_api_key), data=f)
+        if response.status_code in [200, 201]:
+            print(f"✅ Uploaded successfully: {upload_url}")
+        else:
+            print(f"❌ Upload failed. Status: {response.status_code}, Response: {response.text}")
+            sys.exit(1)
+
+# --- MAIN ---
+if len(sys.argv) != 6:
+    print("Usage: generate-keptn-html-report.py <download_url> <local_yaml_file> <output_html> <upload_url> <jfrog_user>")
+    sys.exit(1)
+
+download_url = sys.argv[1]
+yaml_file = sys.argv[2]
+html_file = sys.argv[3]
+upload_url = sys.argv[4]
+jfrog_user = sys.argv[5]
+jfrog_api_key = os.getenv("JFROG_API_KEY")
+
+if not jfrog_api_key:
+    print("❌ Missing environment variable: JFROG_API_KEY")
+    sys.exit(1)
+
+download_from_jfrog(download_url, yaml_file, jfrog_user, jfrog_api_key)
+generate_html_report(yaml_file, html_file)
+upload_to_jfrog(upload_url, html_file, jfrog_user, jfrog_api_key)
