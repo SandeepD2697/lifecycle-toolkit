@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Keptn Analysis Report - kibana-analysis4</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    table { border-collapse: collapse; width: 100%; margin-bottom: 40px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background-color: #f2f2f2; }
+    .pass { color: green; font-weight: bold; }
+    .fail { color: red; font-weight: bold; }
+    .warn { color: orange; font-weight: bold; }
+    a.query-link { color: blue; cursor: pointer; text-decoration: underline; }
+    .summary-true { color: green; font-weight: bold; }
+    .summary-false { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>Keptn Analysis Report</h1>
+
+<p><strong>Analysis:</strong> kibana-analysis4</p>
+<p><strong>Namespace:</strong> default</p>
+<p><strong>From:</strong> 2025-03-07T12:00:00Z</p>
+<p><strong>To:</strong> 2025-03-12T12:25:00Z</p>
+<p><strong>State:</strong> Completed</p>
+<p><strong>Total Score:</strong> 15 / 19</p>
+
+<p>
+<strong>Passed:</strong>
+<span class='summary-true'>true</span>
+</p>
+
+<h2>Primary Objectives</h2>
+<table>
+<tr>
+  <th>Objective</th>
+  <th>Value</th>
+  <th>Target</th>
+  <th>Pass</th>
+  <th>Warning</th>
+  <th>Failure</th>
+  <th>Query</th>
+</tr>
+
+<tr>
+  <td>metrics1</td>
+  <td>72.5</td>
+  <td>100</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-04-12T12:25:00Z&quot;}}},{&quot;term&quot;:{&quot;environment.keyword&quot;:&quot;production&quot;}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;environment.keyword&quot;,&quot;include&quot;:[&quot;production&quot;],&quot;size&quot;:1},&quot;aggs&quot;:{&quot;1&quot;:{&quot;date_histogram&quot;:{&quot;field&quot;:&quot;timestamp&quot;,&quot;calendar_interval&quot;:&quot;hour&quot;},&quot;aggs&quot;:{&quot;2&quot;:{&quot;histogram&quot;:{&quot;field&quot;:&quot;system.cpu.load&quot;,&quot;interval&quot;:10},&quot;aggs&quot;:{&quot;3&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;transactions.average_value&quot;}}}}}}}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metrics2</td>
+  <td>70</td>
+  <td>75</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-05-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0-bucket&quot;:{&quot;filter&quot;:{&quot;bool&quot;:{&quot;must&quot;:[],&quot;filter&quot;:[{&quot;bool&quot;:{&quot;should&quot;:[{&quot;exists&quot;:{&quot;field&quot;:&quot;transactions.keptn.cpu.average&quot;}}],&quot;minimum_should_match&quot;:1}}],&quot;should&quot;:[],&quot;must_not&quot;:[]}},&quot;aggs&quot;:{&quot;0-metric&quot;:{&quot;top_metrics&quot;:{&quot;metrics&quot;:{&quot;field&quot;:&quot;transactions.keptn.cpu.average&quot;},&quot;size&quot;:1,&quot;sort&quot;:{&quot;timestamp&quot;:&quot;desc&quot;}}}}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metrics3</td>
+  <td>2520000000</td>
+  <td>3G</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-03-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;system.network.out_bytes&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metrics4</td>
+  <td>50</td>
+  <td>60</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-04-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0-bucket&quot;:{&quot;filter&quot;:{&quot;bool&quot;:{&quot;must&quot;:[],&quot;filter&quot;:[{&quot;bool&quot;:{&quot;should&quot;:[{&quot;exists&quot;:{&quot;field&quot;:&quot;transactions.keptn.fail.average&quot;}}],&quot;minimum_should_match&quot;:1}}],&quot;should&quot;:[],&quot;must_not&quot;:[]}},&quot;aggs&quot;:{&quot;0-metric&quot;:{&quot;top_metrics&quot;:{&quot;metrics&quot;:{&quot;field&quot;:&quot;transactions.keptn.fail.average&quot;},&quot;size&quot;:1,&quot;sort&quot;:{&quot;timestamp&quot;:&quot;desc&quot;}}}}}}}`)">View Query</a>
+  </td>
+</tr>
+
+</table>
+
+<h2>Additional Objectives</h2>
+<table>
+<tr>
+  <th>Objective</th>
+  <th>Value</th>
+  <th>Target</th>
+  <th>Pass</th>
+  <th>Warning</th>
+  <th>Failure</th>
+  <th>Query</th>
+</tr>
+
+<tr>
+  <td>metric5</td>
+  <td>209.333333</td>
+  <td>200</td>
+  <td class='pass'></td>
+  <td class='warn'></td>
+  <td class='fail'>true</td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;query&quot;:{&quot;bool&quot;:{&quot;must&quot;:[{&quot;range&quot;:{&quot;timestamp&quot;:{&quot;gte&quot;:&quot;2025-03-07T12:00:00Z&quot;,&quot;lte&quot;:&quot;2025-03-12T12:25:00Z&quot;}}}]}},&quot;size&quot;:0,&quot;aggs&quot;:{&quot;0&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;kibana.response_time.avg_ms&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric6</td>
+  <td>0</td>
+  <td>10200m</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;query&quot;:{&quot;term&quot;:{&quot;Logmessage.transactionStatus.keyword&quot;:{&quot;value&quot;:&quot;DOES_NOT_EXIST&quot;}}},&quot;aggs&quot;:{&quot;0&quot;:{&quot;terms&quot;:{&quot;field&quot;:&quot;Logmessage.transactionStatus.keyword&quot;,&quot;size&quot;:10}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric7</td>
+  <td>145</td>
+  <td>180</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;cpu_avg&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;system.cpu.total.pct&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric8</td>
+  <td>81</td>
+  <td>90</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;memory_max&quot;:{&quot;max&quot;:{&quot;field&quot;:&quot;system.memory.used.pct&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric9</td>
+  <td>320</td>
+  <td>300</td>
+  <td class='pass'></td>
+  <td class='warn'></td>
+  <td class='fail'>true</td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;disk_latency&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;system.disk.latency.ms&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric10</td>
+  <td>18</td>
+  <td>25</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;http_5xx&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;http.response.5xx.rate&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric11</td>
+  <td>430</td>
+  <td>500</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;throughput&quot;:{&quot;sum&quot;:{&quot;field&quot;:&quot;transactions.count&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric12</td>
+  <td>97.8</td>
+  <td>95</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;availability&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;service.availability.pct&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric13</td>
+  <td>640</td>
+  <td>700</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;p95_latency&quot;:{&quot;percentiles&quot;:{&quot;field&quot;:&quot;request.latency.ms&quot;,&quot;percents&quot;:[95]}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric14</td>
+  <td>720</td>
+  <td>700</td>
+  <td class='pass'></td>
+  <td class='warn'></td>
+  <td class='fail'>true</td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;p99_latency&quot;:{&quot;percentiles&quot;:{&quot;field&quot;:&quot;request.latency.ms&quot;,&quot;percents&quot;:[99]}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric15</td>
+  <td>12</td>
+  <td>20</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;restart_count&quot;:{&quot;sum&quot;:{&quot;field&quot;:&quot;kubernetes.container.restart_count&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric16</td>
+  <td>88</td>
+  <td>100</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;success_rate&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;transactions.success_rate&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric17</td>
+  <td>41</td>
+  <td>50</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;queue_depth&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;queue.depth&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric18</td>
+  <td>88</td>
+  <td>100</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;success_rate&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;transactions.success_rate&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+<tr>
+  <td>metric19</td>
+  <td>41</td>
+  <td>50</td>
+  <td class='pass'>true</td>
+  <td class='warn'></td>
+  <td class='fail'></td>
+  <td>
+    <a class="query-link" onclick="openQuery(`{&quot;size&quot;:0,&quot;aggs&quot;:{&quot;queue_depth&quot;:{&quot;avg&quot;:{&quot;field&quot;:&quot;queue.depth&quot;}}}}`)">View Query</a>
+  </td>
+</tr>
+
+</table>
+
+<script>
+function openQuery(query) {
+  const newWindow = window.open("", "_blank");
+  newWindow.document.write(`
+    <html>
+      <head>
+        <title>Query</title>
+        <style>
+          body { font-family: monospace; padding: 20px; white-space: pre-wrap; word-break: break-word; }
+        </style>
+      </head>
+      <body>${query}</body>
+    </html>
+  `);
+  newWindow.document.close();
+}
+</script>
+
+</body>
+</html>
