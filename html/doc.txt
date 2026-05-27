@@ -14,6 +14,66 @@ The custom Elastic provider enables Keptn to:
 
 ⸻
 
+Use Case Example
+
+A team deploys a new version of an application and wants to verify that the deployment does not increase CPU usage or response time.
+
+Application metrics are continuously pushed into Elasticsearch.
+
+Keptn Analysis automatically:
+
+1. Executes Elasticsearch queries
+2. Fetches runtime metrics
+3. Extracts values using metricPath
+4. Compares values against thresholds
+5. Generates PASS / FAIL results
+
+Example:
+
+* Average CPU usage should be less than 90
+* Response time should remain within acceptable limits
+* If thresholds are exceeded, the Analysis fails
+
+This helps teams validate deployments automatically before promoting changes to higher environments.
+
+⸻
+
+Why Keptn Analysis is Needed
+
+Keptn Analysis helps validate application and system health automatically during deployments or runtime checks.
+
+Using Analysis, teams can:
+
+* Validate application performance metrics
+* Detect failures automatically
+* Compare live metrics against thresholds
+* Prevent unhealthy deployments from progressing
+* Automate observability-based validation
+
+The Elastic provider extends this capability by allowing metrics to be fetched directly from Elasticsearch.
+
+⸻
+
+Use of Analysis Report
+
+The Analysis report provides the final evaluation results for all configured metrics.
+
+The report helps teams:
+
+* Identify PASS / FAIL / WARNING states
+* Understand which metric failed validation
+* Review extracted metric values
+* Verify threshold comparisons
+* Troubleshoot deployment or runtime issues
+
+Example:
+
+Metric	Value	Threshold	Result
+CPU Load	42.7	> 90	PASS
+Memory Usage	95	> 90	FAIL
+
+⸻
+
 Normal Keptn Flow
 
 Resource	Purpose
