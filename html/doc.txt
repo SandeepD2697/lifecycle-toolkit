@@ -1,0 +1,127 @@
+Keptn Analysis Flow with Elastic Provider
+
+Overview
+
+Keptn uses the Metrics Operator to evaluate application metrics during an Analysis.
+
+The custom Elastic provider enables Keptn to:
+
+* Execute Elasticsearch DSL queries
+* Retrieve metrics from Elasticsearch
+* Extract values using metricPath
+* Compare values against thresholds
+* Generate PASS / FAIL / WARNING results
+
+⸻
+
+Normal Keptn Flow
+
+Resource	Purpose
+Analysis	Starts analysis execution
+AnalysisDefinition	Defines objectives and thresholds
+AnalysisValueTemplate	Contains provider query
+KeptnMetricsProvider	Provider configuration for Elasticsearch
+
+⸻
+
+Keptn Analysis Flow
+
+Analysis Triggered
+       │
+       ▼
+AnalysisDefinition Loaded
+       │
+       ▼
+AnalysisValueTemplate Loaded
+       │
+       ▼
+Elastic Provider Invoked
+       │
+       ▼
+Elasticsearch Query Executed
+       │
+       ▼
+Elasticsearch Response Returned
+       │
+       ▼
+Metric Value Extracted
+       │
+       ▼
+Threshold Comparison Performed
+       │
+       ▼
+PASS / FAIL / WARNING Generated
+
+⸻
+
+metricPath Flow
+
+The metricPath is used to extract the required metric value from the Elasticsearch response.
+
+Example metricPath
+
+metricPath: aggregations.avg_cpu.value
+
+⸻
+
+Elasticsearch Response
+
+{
+  "aggregations": {
+    "avg_cpu": {
+      "value": 42.7
+    }
+  }
+}
+
+⸻
+
+metricPath Extraction Flow
+
+Elasticsearch Response
+       │
+       ▼
+aggregations
+       │
+       ▼
+avg_cpu
+       │
+       ▼
+value
+       │
+       ▼
+42.7
+
+Extracted Value:
+
+42.7
+
+⸻
+
+Threshold Comparison
+
+Example Objective
+
+failure:
+  greaterThan:
+    fixedValue: 90
+
+Comparison Logic:
+
+42.7 > 90 = FALSE
+
+Final Result:
+
+PASS
+
+⸻
+
+Validation Steps
+
+1. Trigger Analysis
+2. Verify Elasticsearch query execution
+3. Verify Elasticsearch response contains expected value
+4. Verify metricPath is correct
+5. Verify extracted value
+6. Verify threshold comparison result
+7. Check final Analysis status (PASS / FAIL / WARNING)
